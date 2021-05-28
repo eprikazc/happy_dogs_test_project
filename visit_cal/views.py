@@ -33,5 +33,8 @@ def calendar(request):
 
 def day_visits(request, year, month, day):
     selected_date = date(year, month, day)
-    matching_visits = Visit.objects.between(selected_date, selected_date).select_related('dog')
+    matching_visits = Visit.objects \
+        .between(selected_date, selected_date) \
+        .order_by('start_date') \
+        .select_related('dog')
     return render(request, 'day_visits.html', {'visits': matching_visits})
