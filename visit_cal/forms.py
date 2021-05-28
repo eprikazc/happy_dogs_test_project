@@ -1,5 +1,4 @@
 from django import forms
-from django.db.models import Q
 
 from visit_cal.models import Visit
 

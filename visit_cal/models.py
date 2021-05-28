@@ -29,4 +29,4 @@ class Visit(models.Model):
     objects = VisitQuerySet.as_manager()
 
     def dates_repr(self):
-        return "%s-%s" % (self.start_date.isoformat(), self.end_date.isoformat())
+        return "%s:%s" % (self.start_date.isoformat(), self.end_date.isoformat())
