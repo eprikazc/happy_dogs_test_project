@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import date, timedelta
 from django.shortcuts import render
 
 from visit_cal.forms import DatesForm
@@ -7,7 +7,7 @@ from visit_cal.models import Visit
 
 def calendar(request):
     template_name = 'calendar.html'
-    form = DatesForm(request.GET)
+    form = DatesForm(request.GET or None)
     if not form.is_valid():
         return render(request, template_name, {'form': form})
     days = []
@@ -29,3 +29,9 @@ def calendar(request):
         })
         current_date += timedelta(days=1)
     return render(request, template_name, {'form': form, 'days': days})
+
+
+def day_visits(request, year, month, day):
+    selected_date = date(year, month, day)
+    matching_visits = Visit.objects.between(selected_date, selected_date).select_related('dog')
+    return render(request, 'day_visits.html', {'visits': matching_visits})

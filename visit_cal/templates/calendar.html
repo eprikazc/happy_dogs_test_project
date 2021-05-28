@@ -1,9 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
   <style>
+    body {
+      margin: 1rem;
+    }
     #calendar {
       margin-top: 2rem;
       display: grid;
@@ -11,12 +18,15 @@
       border-top: 1px solid;
       border-left: 1px solid;
     }
-    .cell.header {
-      font-weight: bold;
-    }
     .cell {
       border-bottom: 1px solid black;
       border-right: 1px solid black;
+    }
+    .cell.header {
+      font-weight: bold;
+    }
+    .cell.day {
+      cursor: pointer;
     }
 
   </style>
@@ -37,29 +47,54 @@
     {{form.end_date.errors}}
   {% else %}
   <div id="calendar">
-    <div class="header cell">Monday</div>
-    <div class="header cell">Tuesday</div>
-    <div class="header cell">Wednesday</div>
-    <div class="header cell">Thursday</div>
-    <div class="header cell">Friday</div>
-    <div class="header cell">Saturday</div>
-    <div class="header cell">Sunday</div>
-    {% for day in days %}
-      <div class="cell">
-        {% if day.show %}
-          {% if day.date.day == 1 %}
+    <div class="cell header">Monday</div>
+    <div class="cell header">Tuesday</div>
+    <div class="cell header">Wednesday</div>
+    <div class="cell header">Thursday</div>
+    <div class="cell header">Friday</div>
+    <div class="cell header">Saturday</div>
+    <div class="cell header">Sunday</div>
+    {% for item in days %}
+      {% with d=item.date %}
+      <div class="cell day" data-title="{{d|date:"M d"}}" data-details-url="{% url "day_visits" d.year d.month d.day  %}">
+        {% if item.show %}
+          {% if d.day == 1 %}
             <strong>
-              {{day.date|date:"M d"}}
+              {{d|date:"M d"}}
             </strong>
           {% else %}
-            {{day.date|date:"d"}}
+            {{d|date:"d"}}
           {% endif %}
           <br>
-          {{day.dogs_count}} Dogs
+          {{item.dogs_count}} Dogs
         {% endif %}
       </div>
+      {% endwith %}
     {% endfor %}
   </div>
   {% endif %}
+
+<div class="modal fade" id="js-details-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="js-details-title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="js-details-body"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+<script src={% static "visits.js" %}></script>
+
 </body>
 </html>

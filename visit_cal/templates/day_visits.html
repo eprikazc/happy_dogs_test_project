@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Dog</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for visit in visits %}
+    <tr>
+      <td>{{ visit.dog }}</td>
+      <td>{{ visit.start_date }}</td>
+      <td>{{ visit.end_date }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

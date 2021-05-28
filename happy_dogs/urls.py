@@ -22,4 +22,5 @@ import visit_cal.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', visit_cal.views.calendar),
+    path('<int:year>/<int:month>/<int:day>/', visit_cal.views.day_visits, name="day_visits")
 ]
