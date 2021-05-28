@@ -17,7 +17,10 @@ class VisitForm(forms.ModelForm):
             return
         if start >= end:
             raise forms.ValidationError("Start date must be earlier than end date")
-        overlapping_visits = Visit.objects.filter(dog=dog).between(start, end).order_by("start_date")
+        overlapping_visits = Visit.objects \
+            .filter(dog=dog) \
+            .between(start, end) \
+            .order_by("start_date")
         if overlapping_visits:
             raise forms.ValidationError(
                 "Overlapping visits exist: " +

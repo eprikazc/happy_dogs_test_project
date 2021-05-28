@@ -16,6 +16,7 @@ def gen_data(
     Dog.objects.all().delete()
     dogs_count = random.choice(dogs_range)
     days = (end_date - start_date).days
+
     for _ in range(dogs_count):
         d = Dog.objects.create(
            first_name=fake.first_name(),
