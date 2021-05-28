@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'boarding_visit_cal.urls'
+ROOT_URLCONF = 'happy_dogs.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'boarding_visit_cal.wsgi.application'
+WSGI_APPLICATION = 'happy_dogs.wsgi.application'
 
 
 # Database
