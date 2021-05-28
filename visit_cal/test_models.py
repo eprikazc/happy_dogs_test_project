@@ -37,11 +37,11 @@ def test_VisitThatStartsWithin_IsIncludedInBetween(db):
     assert Visit.objects.between(START_DATE, END_DATE).count() == 1
 
 
-def test_VisitOnLeftBounday_IsIncludedInBetween(db):
+def test_VisitOnLeftBoundary_IsIncludedInBetween(db):
     baker.make("Visit", start_date=DATE_BEFORE, end_date=START_DATE)
     assert Visit.objects.between(START_DATE, END_DATE).count() == 1
 
 
-def test_VisitOnRightBounday_IsIncludedInBetween(db):
+def test_VisitOnRightBoundary_IsIncludedInBetween(db):
     baker.make("Visit", start_date=END_DATE, end_date=DATE_AFTER)
     assert Visit.objects.between(START_DATE, END_DATE).count() == 1
