@@ -11,7 +11,7 @@ fake = Faker()
 
 
 def gen_data(
-        dogs_range=range(5, 10), visits_range=range(5, 10),
+        dogs_range=range(15, 20), visits_range=range(10, 15),
         start_date=date(2021, 1, 1), end_date=date(2021, 12, 31)):
     Dog.objects.all().delete()
     dogs_count = random.choice(dogs_range)
