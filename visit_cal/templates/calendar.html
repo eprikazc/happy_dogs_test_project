@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    #calendar {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border-top: 1px solid;
+      border-left: 1px solid;
+    }
+    .cell.header {
+      font-weight: bold;
+    }
+    .cell {
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+    }
+
+  </style>
+</head>
+<body>
+  <form>
+    <label>
+      Start date: <input name="start_date" required="" type="date" value="{{form.start_date.value}}">
+    </label>
+    <label>
+      End date: <input name="end_date" required="" type="date" value="{{form.end_date.value}}">
+    </label>
+    <button type="submit">Show</button>
+  </form>
+  {% if not form.is_valid %}
+    {{form.non_field_errors}}
+    {{form.start_date.errors}}
+    {{form.end_date.errors}}
+  {% else %}
+  <div id="calendar">
+    <div class="header cell">Monday</div>
+    <div class="header cell">Tuesday</div>
+    <div class="header cell">Wednesday</div>
+    <div class="header cell">Thursday</div>
+    <div class="header cell">Friday</div>
+    <div class="header cell">Saturday</div>
+    <div class="header cell">Sunday</div>
+    {% for day in days %}
+      <div class="cell">
+        {% if day.show %}
+          {% if day.date.day == 1 %}
+            <strong>
+              {{day.date|date:"M d"}}
+            </strong>
+          {% else %}
+            {{day.date|date:"d"}}
+          {% endif %}
+          <br>
+          {{day.dogs_count}} Dogs
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</body>
+</html>
